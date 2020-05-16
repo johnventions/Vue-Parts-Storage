@@ -12,6 +12,10 @@ module.exports = {
   },
   rules: {
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
-    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off'
+    'no-debugger': process.env.NODE_ENV === 'production' ? 'warn' : 'off',
+    'indent': ['error', 'tab'],
+    'semi': 0,
+    "no-tabs": ["error", { "allowIndentationTabs": true }],
+    //'space-before-function-paren': ['error', 'never']
   }
 }
