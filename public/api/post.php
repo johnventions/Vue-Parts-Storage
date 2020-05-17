@@ -5,20 +5,29 @@ $results = array();
 if ($_POST == null) {
     $_POST = json_decode(file_get_contents("php://input"),true);
 }
-if ($_SESSION["signin"] == true) {
-    if (isset($_POST['title']) && isset($_POST['author'])) {
-        $stmt = $db->prepare("
-            INSERT INTO books (title, author) VALUES (:title, :author)");
-        $stmt->execute(array(
-            "title"=>$_POST['title'],
-            "author"=>$_POST['author']
-        ));
-        $bookID = $db->lastInsertId();
+if ($_SESSION["signin"] == true || 1) {
+    if (isset($_POST['_kp_part'])) {
         $results['success'] = true;
-        $results['bookID'] = $bookID;
+        // update existing
+        $stmt = $db->prepare("
+            UPDATE parts SET name = :name, location = :location WHERE _kp_part = :id");
+        $stmt->execute(array(
+            "name"=>$_POST['name'],
+            "location"=>$_POST['location'],
+            "id"=>$_POST['_kp_part']
+        ));
     } else {
-        $results['success'] = false;
-        $results['error'] = "Missing book info";
+        // create new
+        $stmt = $db->prepare("
+            INSERT INTO parts (name, location, sublocation) VALUES (:name, :location, :sublocation)");
+        $stmt->execute(array(
+            "name"=>$_POST['name'],
+            "location"=>$_POST['location'],
+            "sublocation"=>$_POST['sublocation']
+        ));
+        $partID = $db->lastInsertId();
+        $results['success'] = true;
+        $results['_kp_part'] = $partID;
     }
     
 } 

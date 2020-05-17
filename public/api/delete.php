@@ -5,17 +5,17 @@ $results = array();
 if ($_POST == null) {
     $_POST = json_decode(file_get_contents("php://input"),true);
 }
-if ($_SESSION["signin"] == true) {
-    if ( isset($_POST['_id']) ) {
+if ($_SESSION["signin"] == true || 1) {
+    if ( isset($_POST['_kp_part']) ) {
         $stmt = $db->prepare("
-            DELETE FROM books WHERE _id = :id");
+            DELETE FROM parts WHERE _kp_part = :id");
         $stmt->execute(array(
-            "id"=>$_POST['_id'],
+            "id"=>$_POST['_kp_part'],
         ));
         $results['success'] = true;
     } else {
         $results['success'] = false;
-        $results['error'] = "Missing book id";
+        $results['error'] = "Missing part id";
     }
 }
 

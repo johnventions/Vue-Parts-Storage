@@ -10,6 +10,14 @@ export default new Vuex.Store({
 	mutations: {
 		SET_PARTS: function (state, payload) {
 			state.parts = payload;
+		},
+		ADD_PART: function (state, payload) {
+			state.parts.push(payload);
+		},
+		REMOVE_PART: function (state, payload) {
+			state.parts = [
+				...state.parts.filter(x => x._kp_part !== payload)
+			]
 		}
 	},
 	actions: {

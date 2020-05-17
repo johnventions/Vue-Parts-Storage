@@ -11,7 +11,30 @@
 	-moz-osx-font-smoothing grayscale
 	text-align center
 	color #2c3e50
-	margin-top 60px
+	margin-top 20px
+
+label
+	font-weight bold
+	margin-right 10px
+
+input
+	border 1px solid #999999
+
+.search-container
+	display flex
+	padding 10px
+	input
+		flex-grow 1
+
+table
+	td:first-of-type
+		width: 50%
+	td:nth-of-type(2)
+		width: 30%
+	td:nth-of-type(3)
+		width: 20%
+	td input
+		width 100%
 </style>
 
 <script>
